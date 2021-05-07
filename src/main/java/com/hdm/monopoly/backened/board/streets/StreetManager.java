@@ -1,4 +1,4 @@
-package org.monopoly;
+package com.hdm.monopoly.backened.board.streets;
 
 import java.util.ArrayList;
 
