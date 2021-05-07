@@ -1,4 +1,4 @@
-package com.hdm.monopoly;
+package com.hdm.monopoly.backened.player_money;
 
 public class Konto {
 

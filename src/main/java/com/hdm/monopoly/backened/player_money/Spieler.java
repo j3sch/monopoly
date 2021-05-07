@@ -1,4 +1,7 @@
-package com.hdm.monopoly;
+package com.hdm.monopoly.backened.player_money;
+
+import com.hdm.monopoly.backened.player_money.Bank;
+import com.hdm.monopoly.backened.player_money.Konto;
 
 public class Spieler {
 
