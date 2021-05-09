@@ -7,6 +7,7 @@ public class Spieler {
 
     Bank bank;
     Konto konto;
+    int position;
 
     public Spieler() {
         this.bank = new Bank();
