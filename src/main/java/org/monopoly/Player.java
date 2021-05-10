@@ -1,16 +1,21 @@
 package org.monopoly;
 
-public class Spieler {
-    Bank bank;
-    Konto konto;
-    String name;
-    String color;
+public class Player {
+    private Bank bank;
+    private Konto konto;
+    private String name;
+    private String colour;
+    private int ID;
 
-    public Spieler(String name, String color) {
-        this.name = name;
-        this.color = color;
+    private Player previousPlayer;
+
+    public Player(int ID, String name, String colour) {
         this.bank = new Bank();
         this.konto = new Konto(bank.getStartkapital());
+        this.name = name;
+        this.colour = colour;
+        this.ID = ID;
+
     }
 
     public String getName() {
@@ -21,12 +26,12 @@ public class Spieler {
         this.name = name;
     }
 
-    public String getColor() {
-        return color;
+    public String getColour() {
+        return colour;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setColour(String colour) {
+        this.colour = colour;
     }
 
     //Nach jeder Änderung des Kontostandes wird der neue Kontostand über das return statement zurückgegeben.
@@ -52,5 +57,13 @@ public class Spieler {
     public int spielerErhaeltMiete(){
         konto.geldGutschreiben(10); //Die 10 ist nur ein Beispielbetrag hier wird später die Variable der zu erhaltenden Miete übergeben
         return konto.getKontostand();
+    }
+
+    public Player getPreviousPlayer() {
+        return previousPlayer;
+    }
+
+    public void setPreviousPlayer(Player previousPlayer) {
+        this.previousPlayer = previousPlayer;
     }
 }
