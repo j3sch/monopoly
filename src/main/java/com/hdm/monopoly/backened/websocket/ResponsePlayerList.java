@@ -14,18 +14,18 @@ public class ResponsePlayerList {
 
 	ArrayList<Map<String, String>> map = new ArrayList<>();
 	private int playerNumber;
-	private final String[] COLORS = {"#f44336", "#2196f3", "#4caf50", "#FFEB3B"};
+	private final String[] PLAYERS_COLORS = {"#f44336", "#2196f3", "#4caf50", "#FFEB3B"};
 
 	@MessageMapping("/playerName")
-	@SendTo("/client/playerData")
-	public String greeting(PlayerName message) throws Exception {
+	@SendTo("/client/playerList")
+	public String playerList(PlayerName message) throws Exception {
 
 		if (playerNumber < 4 ) {
 			map.add(playerNumber, new HashMap<>());
 			map.get(playerNumber).put("name", message.getName());
 			map.get(playerNumber).put("position", "0");
 			map.get(playerNumber).put("credit", "31$");
-			map.get(playerNumber).put("color", COLORS[playerNumber]);
+			map.get(playerNumber).put("color", PLAYERS_COLORS[playerNumber]);
 
 			playerNumber++;
 
