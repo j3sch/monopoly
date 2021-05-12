@@ -1,4 +1,4 @@
-package org.monopoly;
+package com.hdm.monopoly.backened.player_money;
 
 public class Colours {
     public String getColours(int i){

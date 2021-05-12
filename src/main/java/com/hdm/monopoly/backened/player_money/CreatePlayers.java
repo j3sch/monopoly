@@ -1,8 +1,10 @@
-package org.monopoly;
+package com.hdm.monopoly.backened.player_money;
+
+
 
 public class CreatePlayers {
     private int numberOfPlayers;
-    private Player[] players;
+    private Spieler[] players;
     private Colours colours = new Colours();
 
     //create all Players
@@ -11,11 +13,11 @@ public class CreatePlayers {
         this.numberOfPlayers = numberOfPlayers;
         for(int i = 0; i < numberOfPlayers; i++) {
 
-            players[i] = new Player(i, ("Spieler" + i+1), colours.getColours(i));
+            players[i] = new Spieler(i, ("Spieler" + i+1), colours.getColours(i));
         }
     }
 
-    public Player[] getPlayers() {
+    public Spieler[] getPlayers() {
         return players;
     }
 
