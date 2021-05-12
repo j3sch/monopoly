@@ -25,13 +25,16 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 		config.setApplicationDestinationPrefixes("/server");
 	}
 
-	//default for the connection
-//	@Override
-//	public void registerStompEndpoints(StompEndpointRegistry registry) {
-//		registry.addEndpoint("/ws-monopoly").setAllowedOriginPatterns("*").withSockJS();
-//	}
+	//default configuration to establish the connection.
+	/*
+	@Override
+	public void registerStompEndpoints(StompEndpointRegistry registry) {
+		registry.addEndpoint("/ws-monopoly").setAllowedOriginPatterns("*").withSockJS();
+	}
 
-	//also to get the sessionId of each player
+	 */
+
+	//default configuration + sessionId of each player to establish the connection.
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 

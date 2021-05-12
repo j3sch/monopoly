@@ -24,7 +24,9 @@ public class ResponsePlayerList {
 	private final String[] PLAYERS_COLORS = {"#f44336", "#2196f3", "#4caf50", "#FFEB3B"};
 	Boolean isPartyFull = false;
 
-
+	/*
+	get the entered name of the player and then add it to the player list
+	 */
 	@MessageMapping("/playerName")
 	@SendTo("/client/playerList")
 	public String playerList(PlayerName message) throws Exception {
@@ -42,7 +44,9 @@ public class ResponsePlayerList {
 		}
 		return new ObjectMapper().writeValueAsString(map);
 	}
-
+	/*
+	gets a message on successful connection and then tells the client if more players can join
+	*/
 	@MessageMapping("/message")
 	@SendToUser("/client/reply")
 	public String processMessageFromClient() throws Exception {
