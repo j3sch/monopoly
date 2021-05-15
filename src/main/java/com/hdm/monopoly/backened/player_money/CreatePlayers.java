@@ -2,8 +2,13 @@ package com.hdm.monopoly.backened.player_money;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessageType;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 
@@ -13,6 +18,10 @@ public class CreatePlayers {
     private final Spieler[] players = new Spieler[4];
     private final Colours colours = new Colours();
     private Boolean isPartyFull = false;
+    private final String[] SESSIONIDS = new String[4];
+
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
 
     /*
     gets the entered player name.
@@ -20,17 +29,25 @@ public class CreatePlayers {
     */
     @MessageMapping("/playerName")
     @SendTo("/client/playerList")
-    public String addPlayer(Spieler message) throws JsonProcessingException {
+    public String addPlayer(Spieler message, @Header("simpSessionId") String sessionId)
+            throws JsonProcessingException {
+
         if (playerNumber < 4) {
+
+            SESSIONIDS[playerNumber] = (sessionId);
+
             players[playerNumber] = new Spieler(
                     playerNumber,
                     message.getName(),
                     colours.getColours(playerNumber)
             );
+
             playerNumber++;
 
             if (playerNumber == 4) {
                 isPartyFull = true;
+                playerXTurn();
+//                notificationEvent();
             }
         }
         return new ObjectMapper().writeValueAsString(players);
@@ -39,6 +56,31 @@ public class CreatePlayers {
     public Spieler[] getPlayers() {
         return players;
     }
+
+    /*
+    sends a notification to all players, which player's turn it is now
+    TODO message isn't sent away
+     */
+    @MessageMapping()
+    @SendTo("/client/notification")
+    private String notificationEvent() throws JsonProcessingException {
+        return new ObjectMapper().writeValueAsString("Player" + getPlayers()[playerNumber - 1].getName() + " is on turn");
+    }
+
+    /*
+    sends this message only to the player whose turn it is now, so that the buttons can be activated
+     */
+    public void playerXTurn() {
+        SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor
+                .create(SimpMessageType.MESSAGE);
+        headerAccessor.setSessionId(SESSIONIDS[0]);
+        headerAccessor.setLeaveMutable(true);
+
+        messagingTemplate.convertAndSendToUser(SESSIONIDS[0],"/client/toggleDiceNumberBtn",
+                false,
+                headerAccessor.getMessageHeaders());
+    }
+
 
     //Define previous Player for everyone
     public void setPreviousPlayers() {
