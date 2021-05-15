@@ -12,10 +12,6 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 @Controller
 public class CreatePlayers {
     private int playerNumber;
@@ -51,7 +47,7 @@ public class CreatePlayers {
             if (playerNumber == 4) {
                 isPartyFull = true;
                 playerXTurn();
-                notificationEvent();
+//                notificationEvent();
             }
         }
         return new ObjectMapper().writeValueAsString(players);
@@ -80,7 +76,7 @@ public class CreatePlayers {
         headerAccessor.setSessionId(SESSIONIDS[0]);
         headerAccessor.setLeaveMutable(true);
 
-        messagingTemplate.convertAndSendToUser(SESSIONIDS[0],"/client/enablePlayerButton",
+        messagingTemplate.convertAndSendToUser(SESSIONIDS[0],"/client/toggleDiceNumberBtn",
                 false,
                 headerAccessor.getMessageHeaders());
     }
