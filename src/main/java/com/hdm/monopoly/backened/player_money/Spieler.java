@@ -4,6 +4,11 @@ package com.hdm.monopoly.backened.player_money;
 public class Spieler {
 
 
+   
+    int position;
+
+
+
     private Konto konto;
     private String name;
     private String colour;
