@@ -5,10 +5,7 @@ public class Spieler {
 
 
    
-    int position;
-
-
-
+    private int position;
     private Konto konto;
     private String name;
     private String colour;
@@ -21,6 +18,14 @@ public class Spieler {
         this.name = name;
         this.colour = colour;
         this.ID = ID;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public int getPosition() {
+        return position;
     }
 
     public String getName() {
