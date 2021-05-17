@@ -25,6 +25,10 @@ public class Game {
         }
     }
 
+    public void runGame(){
+        // TODO Game Loop
+    }
+
     /**
      * This function is the only method to obtain a reference to the game that is currently running.
      * If there is no game running it creates a new one and makes it accessible.
@@ -54,6 +58,23 @@ public class Game {
      */
     public Map getBoard(){
         return board;
+    }
+
+    /**
+     * This method moves the player to his new position and executes the field action.
+     * This method does not take the action of rolling the dice. It has to happen before.
+     * @param currentPlayer Is the player that is getting moved
+     * @param resultDice Number of fields the player should be moved
+     */
+    public void movePlayer(Spieler currentPlayer,int resultDice){
+        //Calculating players new position and checking if he made a whole round around the map and is at the start again
+        int newPosition = (currentPlayer.getPosition() + resultDice) % board.size();
+        if(currentPlayer.getPosition()>newPosition){
+            //TODO get money for crossing map start = yet to be implemented
+        }
+        currentPlayer.setPosition(newPosition);
+        //activates the moveOnField function which is the field action
+        board.getField(newPosition).moveOnField(currentPlayer);
     }
 }
 
