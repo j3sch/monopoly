@@ -1,23 +1,24 @@
 package com.hdm.monopoly.backened.player_money;
 
 
-public class Spieler {
+public class Player {
 
 
    
     private int position;
-    private Konto konto;
+    private Account account;
     private String name;
     private String colour;
     private int ID;
-    private Spieler previousPlayer;
+    private Player previousPlayer;
 
-    public Spieler(int ID, String name, String colour) {
+    public Player(int ID, String name, String colour) {
 
-        this.konto = new Konto(3000);
+        this.account = new Account(31);
         this.name = name;
         this.colour = colour;
         this.ID = ID;
+        this.position = 0;
     }
 
     public void setPosition(int position) {
@@ -44,11 +45,11 @@ public class Spieler {
         this.colour = colour;
     }
 
-    public Spieler getPreviousPlayer() {
+    public Player getPreviousPlayer() {
         return previousPlayer;
     }
 
-    public void setPreviousPlayer(Spieler previousPlayer) {
+    public void setPreviousPlayer(Player previousPlayer) {
         this.previousPlayer = previousPlayer;
     }
 
@@ -56,13 +57,14 @@ public class Spieler {
     //Falls wir später eine Anzeige des Kontostandes haben, kann man die Anzeige mit den Returnstatments aktualisieren
 
 
-    public int spielerErhaeltGeld(int betrag){
-        konto.geldGutschreiben(betrag);
-        return konto.getKontostand();
+    public int PlayerGetsMoney(int amount){
+        account.getMoney(amount);
+        return account.getBankBalance();
     }
 
-    public int spielerZahltGeld(int betrag){
-        konto.geldAbziehen(betrag);
-        return konto.getKontostand();
+    public int PlayerPaysMoney(int amount){
+        account.payMoney(amount);
+        return account.getBankBalance();
     }
+
 }

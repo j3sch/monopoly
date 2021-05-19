@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class CreatePlayers {
     private int playerNumber;
-    private final Spieler[] players = new Spieler[4];
+    private final Player[] players = new Player[4];
     private final Colours colours = new Colours();
     private Boolean isPartyFull = false;
     private final String[] SESSIONIDS = new String[4];
@@ -29,14 +29,14 @@ public class CreatePlayers {
     */
     @MessageMapping("/playerName")
     @SendTo("/client/playerList")
-    public String addPlayer(Spieler message, @Header("simpSessionId") String sessionId)
+    public String addPlayer(Player message, @Header("simpSessionId") String sessionId)
             throws JsonProcessingException {
 
         if (playerNumber < 4) {
 
             SESSIONIDS[playerNumber] = (sessionId);
 
-            players[playerNumber] = new Spieler(
+            players[playerNumber] = new Player(
                     playerNumber,
                     message.getName(),
                     colours.getColours(playerNumber)
@@ -53,7 +53,7 @@ public class CreatePlayers {
         return new ObjectMapper().writeValueAsString(players);
     }
 
-    public Spieler[] getPlayers() {
+    public Player[] getPlayers() {
         return players;
     }
 
