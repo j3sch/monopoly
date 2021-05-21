@@ -10,18 +10,28 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 @Controller
+@Component("createPlayer")
 public class CreatePlayers {
     private int playerNumber;
-    private final Player[] players = new Player[4];
     private final Colours colours = new Colours();
     private Boolean isPartyFull = false;
     private final String[] SESSIONIDS = new String[4];
+    private SimpMessagingTemplate messagingTemplate;
+    private final Player[] players;
 
     @Autowired
-    private SimpMessagingTemplate messagingTemplate;
+    public void setMessagingTemplate(SimpMessagingTemplate messagingTemplate) {
+        this.messagingTemplate = messagingTemplate;
+    }
+
+    @Autowired
+    public CreatePlayers(Player[] players) {
+        this.players = players;
+    }
 
     /*
     gets the entered player name.
