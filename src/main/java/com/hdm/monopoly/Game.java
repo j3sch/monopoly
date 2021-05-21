@@ -8,7 +8,6 @@ import java.util.ArrayList;
 /**
  * Class that starts and manages the game, is implemented as a singleton
  */
-
 public class Game {
 
     private static Game game;
