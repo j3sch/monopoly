@@ -31,9 +31,5 @@ public class DiceNumber {
         return new ObjectMapper().writeValueAsString(true);
     }
 
-    private void diceRandomNumber() {
-        int diceNumber = (int) (Math.random() * 6 + 1);
-
-        players[0].setPosition(diceNumber);
-    }
+    private void diceRandomNumber() {}
 }
