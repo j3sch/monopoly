@@ -2,16 +2,12 @@ package com.hdm.monopoly;
 
 import com.hdm.monopoly.backened.board.street_test.Map;
 import com.hdm.monopoly.backened.player_money.Player;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
 
 /**
  * Class that starts and manages the game, is implemented as a singleton
  */
-
 
 public class Game {
 
@@ -29,9 +25,6 @@ public class Game {
             //based on the playerCount the "Spielers" are created and gets put into the players ArrayList
         }
     }
-
-
-
 
     public void runGame(){
         // TODO Game Loop
