@@ -1,14 +1,14 @@
-package com.hdm.monopoly.backened.di;
+package com.hdm.monopoly.backend.di;
 
-import com.hdm.monopoly.backened.board.streets.StreetManager;
-import com.hdm.monopoly.backened.player_money.Player;
-import com.hdm.monopoly.backened.player_money.SendMessage;
+import com.hdm.monopoly.backend.board.streets.StreetManager;
+import com.hdm.monopoly.backend.player_money.Player;
+import com.hdm.monopoly.backend.player_money.SendMessage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan("com.hdm.monopoly.backened")
+@ComponentScan("com.hdm.monopoly.backend")
 public class GameConfig {
 
     private final Player[] players = new Player[4];

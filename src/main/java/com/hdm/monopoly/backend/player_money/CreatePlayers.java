@@ -1,4 +1,4 @@
-package com.hdm.monopoly.backened.player_money;
+package com.hdm.monopoly.backend.player_money;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

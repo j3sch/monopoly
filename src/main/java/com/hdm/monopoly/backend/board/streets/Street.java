@@ -1,4 +1,4 @@
-package com.hdm.monopoly.backened.board.streets;
+package com.hdm.monopoly.backend.board.streets;
 
 public class Street {
 //Eigenschaften

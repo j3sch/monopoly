@@ -1,6 +1,6 @@
-package com.hdm.monopoly.backened.board.street_test;
+package com.hdm.monopoly.backend.board.street_test;
 
-import com.hdm.monopoly.backened.player_money.Player;
+import com.hdm.monopoly.backend.player_money.Player;
 
 public class Street implements Field {
     private String streetName;

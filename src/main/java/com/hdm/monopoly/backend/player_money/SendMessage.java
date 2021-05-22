@@ -1,4 +1,4 @@
-package com.hdm.monopoly.backened.player_money;
+package com.hdm.monopoly.backend.player_money;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;

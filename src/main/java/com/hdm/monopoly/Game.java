@@ -1,7 +1,7 @@
 package com.hdm.monopoly;
 
-import com.hdm.monopoly.backened.board.street_test.Map;
-import com.hdm.monopoly.backened.player_money.Player;
+import com.hdm.monopoly.backend.board.street_test.Map;
+import com.hdm.monopoly.backend.player_money.Player;
 
 import java.util.ArrayList;
 
