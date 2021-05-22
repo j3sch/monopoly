@@ -18,7 +18,18 @@ public class SendMessage {
         this.messagingTemplate = messagingTemplate;
     }
 
-    protected void sendToUser(String sessionId, String destination, String message) {
+    protected void sendStringToUser(String sessionId, String destination, String message) {
+        SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor
+                .create(SimpMessageType.MESSAGE);
+        headerAccessor.setSessionId(sessionId);
+        headerAccessor.setLeaveMutable(true);
+
+        messagingTemplate.convertAndSendToUser(sessionId, destination,
+                message,
+                headerAccessor.getMessageHeaders());
+    }
+
+    protected void sendBooleanToUser(String sessionId, String destination, Boolean message) {
         SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor
                 .create(SimpMessageType.MESSAGE);
         headerAccessor.setSessionId(sessionId);
@@ -30,7 +41,6 @@ public class SendMessage {
     }
 
     protected void sendToAll(String destination, String message) {
-        messagingTemplate.convertAndSend(destination,
-                message);
+        messagingTemplate.convertAndSend(destination, message);
     }
 }
