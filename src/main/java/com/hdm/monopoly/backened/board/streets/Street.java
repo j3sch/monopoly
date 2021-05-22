@@ -12,10 +12,6 @@ public class Street {
 
 //Konstruktor
 //Constructor
-    public Street(String streetName) {
-        this.streetName = streetName;
-    }
-
     public Street(String streetName, boolean sold, int price, int rent, String color) {
         this.streetName = streetName;
         this.sold = sold;

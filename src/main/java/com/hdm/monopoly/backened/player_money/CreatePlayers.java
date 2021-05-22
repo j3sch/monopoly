@@ -2,7 +2,6 @@ package com.hdm.monopoly.backened.player_money;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hdm.monopoly.backened.board.streets.StreetManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -23,7 +22,6 @@ public class CreatePlayers {
     private final String[] SESSIONIDS = new String[4];
     private SimpMessagingTemplate messagingTemplate;
     private final Player[] players;
-    private final StreetManager streetManager;
 
     @Autowired
     public void setMessagingTemplate(SimpMessagingTemplate messagingTemplate) {
@@ -31,9 +29,8 @@ public class CreatePlayers {
     }
 
     @Autowired
-    public CreatePlayers(Player[] players, StreetManager streetManager) {
+    public CreatePlayers(Player[] players) {
         this.players = players;
-        this.streetManager = streetManager;
     }
 
     /*
