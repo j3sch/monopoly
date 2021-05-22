@@ -2,13 +2,10 @@ package com.hdm.monopoly.backened.player_money;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hdm.monopoly.backened.board.streets.StreetManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Component;
@@ -23,7 +20,7 @@ public class CreatePlayers {
     private final String[] SESSIONIDS = new String[4];
     private SimpMessagingTemplate messagingTemplate;
     private final Player[] players;
-    private final StreetManager streetManager;
+    private final SendMessage sendMessage;
 
     @Autowired
     public void setMessagingTemplate(SimpMessagingTemplate messagingTemplate) {
@@ -31,9 +28,9 @@ public class CreatePlayers {
     }
 
     @Autowired
-    public CreatePlayers(Player[] players, StreetManager streetManager) {
+    public CreatePlayers(Player[] players, SendMessage sendMessage) {
         this.players = players;
-        this.streetManager = streetManager;
+        this.sendMessage = sendMessage;
     }
 
     /*
@@ -84,16 +81,8 @@ public class CreatePlayers {
     sends this message only to the player whose turn it is now, so that the buttons can be activated
      */
     public void playerXTurn() {
-        SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor
-                .create(SimpMessageType.MESSAGE);
-        headerAccessor.setSessionId(SESSIONIDS[0]);
-        headerAccessor.setLeaveMutable(true);
-
-        messagingTemplate.convertAndSendToUser(SESSIONIDS[0],"/client/toggleDiceNumberBtn",
-                false,
-                headerAccessor.getMessageHeaders());
+        sendMessage.sendBooleanToUser(SESSIONIDS[0], "/client/toggleDiceNumberBtn", false);
     }
-
 
     //Define previous Player for everyone
     public void setPreviousPlayers() {
