@@ -1,10 +1,10 @@
-package com.hdm.monopoly.backened.board.street_test;
+package com.hdm.monopoly.backend.board.street_test;
 
-import com.hdm.monopoly.backened.player_money.Spieler;
+import com.hdm.monopoly.backend.player_money.Player;
 
 public class Street implements Field {
     private String streetName;
-    private Spieler owner;
+    private Player owner;
     private int price;
     private int rent;
     private Color color;
@@ -29,7 +29,7 @@ public class Street implements Field {
         this.color = color;
     }
 
-    public void moveOnField(Spieler player) {
+    public void moveOnField(Player player) {
         if (owner == null) {
             //ask player if he wants to buy that field
         } else {

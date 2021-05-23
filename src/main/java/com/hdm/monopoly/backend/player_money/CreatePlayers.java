@@ -1,4 +1,4 @@
-package com.hdm.monopoly.backened.player_money;
+package com.hdm.monopoly.backend.player_money;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,22 +6,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 @Controller
+@Component("createPlayer")
 public class CreatePlayers {
     private int playerNumber;
-    private final Spieler[] players = new Spieler[4];
     private final Colours colours = new Colours();
     private Boolean isPartyFull = false;
     private final String[] SESSIONIDS = new String[4];
+    private SimpMessagingTemplate messagingTemplate;
+    private final Player[] players;
+    private final SendMessage sendMessage;
 
     @Autowired
-    private SimpMessagingTemplate messagingTemplate;
+    public void setMessagingTemplate(SimpMessagingTemplate messagingTemplate) {
+        this.messagingTemplate = messagingTemplate;
+    }
+
+    @Autowired
+    public CreatePlayers(Player[] players, SendMessage sendMessage) {
+        this.players = players;
+        this.sendMessage = sendMessage;
+    }
 
     /*
     gets the entered player name.
@@ -29,14 +39,14 @@ public class CreatePlayers {
     */
     @MessageMapping("/playerName")
     @SendTo("/client/playerList")
-    public String addPlayer(Spieler message, @Header("simpSessionId") String sessionId)
+    public String addPlayer(Player message, @Header("simpSessionId") String sessionId)
             throws JsonProcessingException {
 
         if (playerNumber < 4) {
 
             SESSIONIDS[playerNumber] = (sessionId);
 
-            players[playerNumber] = new Spieler(
+            players[playerNumber] = new Player(
                     playerNumber,
                     message.getName(),
                     colours.getColours(playerNumber)
@@ -53,7 +63,7 @@ public class CreatePlayers {
         return new ObjectMapper().writeValueAsString(players);
     }
 
-    public Spieler[] getPlayers() {
+    public Player[] getPlayers() {
         return players;
     }
 
@@ -71,16 +81,8 @@ public class CreatePlayers {
     sends this message only to the player whose turn it is now, so that the buttons can be activated
      */
     public void playerXTurn() {
-        SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor
-                .create(SimpMessageType.MESSAGE);
-        headerAccessor.setSessionId(SESSIONIDS[0]);
-        headerAccessor.setLeaveMutable(true);
-
-        messagingTemplate.convertAndSendToUser(SESSIONIDS[0],"/client/toggleDiceNumberBtn",
-                false,
-                headerAccessor.getMessageHeaders());
+        sendMessage.sendBooleanToUser(SESSIONIDS[0], "/client/toggleDiceNumberBtn", false);
     }
-
 
     //Define previous Player for everyone
     public void setPreviousPlayers() {

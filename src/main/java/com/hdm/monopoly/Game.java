@@ -1,8 +1,9 @@
 package com.hdm.monopoly;
 
-import com.hdm.monopoly.backened.board.street_test.Map;
-import com.hdm.monopoly.backened.player_money.DiceNumber;
-import com.hdm.monopoly.backened.player_money.Spieler;
+import com.hdm.monopoly.backend.player_money.DiceNumber;
+import com.hdm.monopoly.backend.board.street_test.Map;
+import com.hdm.monopoly.backend.player_money.Player;
+
 
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public class Game {
     private static boolean isInitialized = false;
 
     // These two attributes enable a connection between a map and players
-    private ArrayList<Spieler> players; /*we assume the game knows on its creation how many players there are.
+    private ArrayList<Player> players; /*we assume the game knows on its creation how many players there are.
     That could be achieved by a controller class that manages the network communication*/
     private Map board;
 
@@ -90,7 +91,8 @@ public class Game {
      * @param playerToBeMoved Is the player that is getting moved
      * @param steps Number of fields the player should be moved
      */
-    public void movePlayer(Spieler playerToBeMoved,int steps){
+
+    public void movePlayer(Player currentPlayer, int steps){
         //Calculating players new position and checking if he made a whole round around the map and is at the start again
         int newPosition = (playerToBeMoved.getPosition() + steps) % board.size();
         if(playerToBeMoved.getPosition()>newPosition){

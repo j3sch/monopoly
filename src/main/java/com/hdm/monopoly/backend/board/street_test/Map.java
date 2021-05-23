@@ -1,4 +1,4 @@
-package com.hdm.monopoly.backened.board.street_test;
+package com.hdm.monopoly.backend.board.street_test;
 
 public class Map {
     private Field[] map;

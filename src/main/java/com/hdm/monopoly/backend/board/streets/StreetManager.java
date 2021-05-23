@@ -1,4 +1,4 @@
-package com.hdm.monopoly.backened.board.streets;
+package com.hdm.monopoly.backend.board.streets;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ public class StreetManager {
 //properties
 
 final private String[]  streetName = {"Burger Joint", "Pizza House", "Candy Store","Ice Cream Palor","Museum", "Library", "Skate Park", "Swimming Pool", "Video Game Arcade", "Movie Theater", "Toy Store", "Pet Store", "Bowling Alley", "The Zoo", "Park Place", "Boardwalk"};
-private boolean[] sold = new boolean[15];
+private boolean[] sold = new boolean[16];
 final private int[] price = {1,1,1,1,2,2,2,2,3,3,3,3,4,4,5,5};
 final private int[] rent = {1,1,1,1,2,2,2,2,3,3,3,3,4,4,5,5};
 final private String[]  color = {"Brown", "Brown", "Light Blue","Light Blue", "Pink", "Pink", "Orange","Orange","Red","Red", "Yellow", "Yellow","Green", "Green" , "Dark Blue", "Dark Blue"};
