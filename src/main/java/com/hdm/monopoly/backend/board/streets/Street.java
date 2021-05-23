@@ -1,32 +1,42 @@
 package com.hdm.monopoly.backend.board.streets;
 
-public class Street {
+import com.hdm.monopoly.backend.player_money.Player;
+
+public class Street implements Fields {
 //Eigenschaften
 //Properties
 
     private String streetName;
-    private boolean sold;
+    private int index;
     private int price;
     private int rent;
-    private String color;
+    private Color color;
+    private Player owner;
 
-//Konstruktor
+
+    //Konstruktor
 //Constructor
-    public Street(String streetName, boolean sold, int price, int rent, String color) {
+
+
+    public Street(String streetName, int index, int price, int rent, Color color) {
         this.streetName = streetName;
-        this.sold = sold;
+        this.index = index;
         this.price = price;
         this.rent = rent;
         this.color = color;
     }
-//Methods
-//Getter
+
+    //Methods
+    public void moveOnField(Player player) {
+        if (owner == null) {
+            //ask player if he wants to buy that field
+        } else {
+            //player on field has to pay rent to the owner
+        }
+    }
+    //Getter
     public String getStreetName() {
         return streetName;
-    }
-
-    public boolean isSold() {
-        return sold;
     }
 
     public int getPrice() {
@@ -37,14 +47,22 @@ public class Street {
         return rent;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
-//Setter
-
-
-    public void setSold(boolean sold) {
-        this.sold = sold;
+    public int getIndex() {
+        return index;
     }
+
+    public Player getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Player owner) {
+        this.owner = owner;
+    }
+
+
+
 }
