@@ -30,7 +30,10 @@ public class Game {
     private Game(){
         if(isInitialized) {
             currentPlayer=0;
-            dice= new DiceNumber();
+
+            //why does the DiceNumber class needs an player array?
+            dice= new DiceNumber((Player[]) players.toArray());
+
             //based on the playerCount the "Spielers" are created and gets put into the players ArrayList
         }
     }
@@ -92,7 +95,7 @@ public class Game {
      * @param steps Number of fields the player should be moved
      */
 
-    public void movePlayer(Player currentPlayer, int steps){
+    public void movePlayer(Player playerToBeMoved, int steps){
         //Calculating players new position and checking if he made a whole round around the map and is at the start again
         int newPosition = (playerToBeMoved.getPosition() + steps) % board.size();
         if(playerToBeMoved.getPosition()>newPosition){
@@ -107,7 +110,7 @@ public class Game {
      * A getter for the player that is now on the turn. So he is the current player.
      * @return The current player.
      */
-    public Spieler getCurrentPlayer(){
+    public Player getCurrentPlayer(){
         return players.get(currentPlayer);
     }
 
