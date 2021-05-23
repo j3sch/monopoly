@@ -1,7 +1,9 @@
 package com.hdm.monopoly;
 
+import com.hdm.monopoly.backend.player_money.DiceNumber;
 import com.hdm.monopoly.backend.board.street_test.Map;
 import com.hdm.monopoly.backend.player_money.Player;
+
 
 import java.util.ArrayList;
 
@@ -19,14 +21,37 @@ public class Game {
     That could be achieved by a controller class that manages the network communication*/
     private Map board;
 
+    private int currentPlayer;
+
+    private boolean gameRun;
+
+    private DiceNumber dice;
+
     private Game(){
         if(isInitialized) {
+            currentPlayer=0;
+            dice= new DiceNumber();
             //based on the playerCount the "Spielers" are created and gets put into the players ArrayList
         }
     }
 
+    /**
+     * method which implements the game loop
+     */
     public void runGame(){
         // TODO Game Loop
+        while(gameRun){
+            //begin of turn
+            //TODO player interaction
+            /*
+            example of a turn without player interaction
+             */
+            int diceResult = dice.diceRandomNumber();
+            movePlayer(getCurrentPlayer(),diceResult);
+
+            //end of turn
+            endOfTurn();
+        }
     }
 
     /**
@@ -63,18 +88,35 @@ public class Game {
     /**
      * This method moves the player to his new position and executes the field action.
      * This method does not take the action of rolling the dice. It has to happen before.
-     * @param currentPlayer Is the player that is getting moved
-     * @param resultDice Number of fields the player should be moved
+     * @param playerToBeMoved Is the player that is getting moved
+     * @param steps Number of fields the player should be moved
      */
-    public void movePlayer(Player currentPlayer, int resultDice){
+
+    public void movePlayer(Player currentPlayer, int steps){
         //Calculating players new position and checking if he made a whole round around the map and is at the start again
-        int newPosition = (currentPlayer.getPosition() + resultDice) % board.size();
-        if(currentPlayer.getPosition()>newPosition){
+        int newPosition = (playerToBeMoved.getPosition() + steps) % board.size();
+        if(playerToBeMoved.getPosition()>newPosition){
             //TODO get money for crossing map start = yet to be implemented
         }
-        currentPlayer.setPosition(newPosition);
+        playerToBeMoved.setPosition(newPosition);
         //activates the moveOnField function which is the field action
-        board.getField(newPosition).moveOnField(currentPlayer);
+        board.getField(newPosition).moveOnField(playerToBeMoved);
+    }
+
+    /**
+     * A getter for the player that is now on the turn. So he is the current player.
+     * @return The current player.
+     */
+    public Spieler getCurrentPlayer(){
+        return players.get(currentPlayer);
+    }
+
+    /**
+     * method which controls the end of the turn and checks if the game is over
+     */
+    private void endOfTurn(){
+        //TODO check if game has to end
+        currentPlayer=++currentPlayer%playerCount;
     }
 }
 

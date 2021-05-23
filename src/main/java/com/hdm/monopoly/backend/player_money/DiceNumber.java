@@ -31,5 +31,7 @@ public class DiceNumber {
         return new ObjectMapper().writeValueAsString(true);
     }
 
-    private void diceRandomNumber() {}
+    public int diceRandomNumber() {
+        return (int)(Math.random()*5)+1;
+    }
 }
