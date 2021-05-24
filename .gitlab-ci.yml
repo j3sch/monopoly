@@ -1,7 +1,1 @@
-stages:
-  -test
 
-unit-tests:
-  stage: test
-  image: maven:latest
-  script: mvn test
