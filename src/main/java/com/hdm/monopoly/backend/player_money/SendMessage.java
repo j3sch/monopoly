@@ -18,18 +18,7 @@ public class SendMessage {
         this.messagingTemplate = messagingTemplate;
     }
 
-    protected void sendStringToUser(String sessionId, String destination, String message) {
-        SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor
-                .create(SimpMessageType.MESSAGE);
-        headerAccessor.setSessionId(sessionId);
-        headerAccessor.setLeaveMutable(true);
-
-        messagingTemplate.convertAndSendToUser(sessionId, destination,
-                message,
-                headerAccessor.getMessageHeaders());
-    }
-
-    protected void sendBooleanToUser(String sessionId, String destination, Boolean message) {
+    protected void sendToUser(String sessionId, String destination, String message) {
         SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor
                 .create(SimpMessageType.MESSAGE);
         headerAccessor.setSessionId(sessionId);

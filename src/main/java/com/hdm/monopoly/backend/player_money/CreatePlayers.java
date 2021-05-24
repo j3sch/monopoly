@@ -81,7 +81,7 @@ public class CreatePlayers {
     sends this message only to the player whose turn it is now, so that the buttons can be activated
      */
     public void playerXTurn() {
-        sendMessage.sendBooleanToUser(SESSIONIDS[0], "/client/toggleDiceNumberBtn", false);
+        sendMessage.sendToUser(SESSIONIDS[0], "/client/toggleDiceNumberBtn", "false");
     }
 
     //Define previous Player for everyone
