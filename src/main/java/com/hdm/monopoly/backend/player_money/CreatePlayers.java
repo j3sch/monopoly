@@ -33,8 +33,7 @@ public class CreatePlayers {
     Creates the player and sends the array of all players to the client.
     */
     @MessageMapping("/playerName")
-    @SendTo("/client/playerList")
-    public String addPlayer(Player message, @Header("simpSessionId") String sessionId)
+    public void addPlayer(Player message, @Header("simpSessionId") String sessionId)
             throws JsonProcessingException {
 
         if (playerNumber < 4) {
@@ -55,7 +54,11 @@ public class CreatePlayers {
 //                notificationEvent();
             }
         }
-        return new ObjectMapper().writeValueAsString(players);
+        for (String id: SESSIONIDS) {
+            if (id != null) {
+                sendMessage.sendToUser(id, "/client/playerList", new ObjectMapper().writeValueAsString(players));
+            }
+        }
     }
 
     public Player[] getPlayers() {
