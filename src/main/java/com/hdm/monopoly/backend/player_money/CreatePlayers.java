@@ -3,6 +3,7 @@ package com.hdm.monopoly.backend.player_money;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -18,17 +19,11 @@ public class CreatePlayers {
     private final Colours colours = new Colours();
     private Boolean isPartyFull = false;
     private final String[] SESSIONIDS = new String[4];
-    private SimpMessagingTemplate messagingTemplate;
     private final Player[] players;
     private final SendMessage sendMessage;
 
     @Autowired
-    public void setMessagingTemplate(SimpMessagingTemplate messagingTemplate) {
-        this.messagingTemplate = messagingTemplate;
-    }
-
-    @Autowired
-    public CreatePlayers(Player[] players, SendMessage sendMessage) {
+    public CreatePlayers(Player[] players, @Qualifier("getSendMessage") SendMessage sendMessage) {
         this.players = players;
         this.sendMessage = sendMessage;
     }
