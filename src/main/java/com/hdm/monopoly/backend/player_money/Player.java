@@ -63,4 +63,8 @@ public class Player {
         account.payMoney(amount);
         return account.getBankBalance();
     }
+
+    public int getPlayerBankBalance() {
+        return account.getBankBalance();
+    }
 }
