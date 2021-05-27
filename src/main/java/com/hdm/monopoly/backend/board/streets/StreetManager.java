@@ -24,7 +24,7 @@ public class StreetManager {
     //For schleife erstellt die Objekte und fügt sie der ArrayListe hinzu.
     public void streetMaker() {
         for(int i = 0; i <= 23; ++i) {
-            Street street = new Street(this.streetName[i],this.index[i], this.price[i], this.rent[i], this.color[i]);
+            Street street = new Street(this.streetName[i], this.price[i], this.rent[i], this.color[i]);
             this.streets.add(street);
         }
     }

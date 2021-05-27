@@ -1,7 +1,7 @@
 package com.hdm.monopoly;
 
 import com.hdm.monopoly.backend.player_money.DiceNumber;
-import com.hdm.monopoly.backend.board.street_test.Map;
+import com.hdm.monopoly.backend.board.streets.Map;
 import com.hdm.monopoly.backend.player_money.Player;
 
 
@@ -34,7 +34,7 @@ public class Game {
             //why does the DiceNumber class needs an player array?
             dice= new DiceNumber((Player[]) players.toArray());
 
-            //based on the playerCount the "Spielers" are created and gets put into the players ArrayList
+            //based on the playerCount the Players are created and gets put into the players ArrayList
         }
     }
 

@@ -2,12 +2,11 @@ package com.hdm.monopoly.backend.board.streets;
 
 import com.hdm.monopoly.backend.player_money.Player;
 
-public class Street implements Fields {
+public class Street implements Field {
 //Eigenschaften
 //Properties
 
     private String streetName;
-    private int index;
     private int price;
     private int rent;
     private Color color;
@@ -18,9 +17,8 @@ public class Street implements Fields {
 //Constructor
 
 
-    public Street(String streetName, int index, int price, int rent, Color color) {
+    public Street(String streetName, int price, int rent, Color color) {
         this.streetName = streetName;
-        this.index = index;
         this.price = price;
         this.rent = rent;
         this.color = color;
@@ -49,10 +47,6 @@ public class Street implements Fields {
 
     public Color getColor() {
         return color;
-    }
-
-    public int getIndex() {
-        return index;
     }
 
     public Player getOwner() {

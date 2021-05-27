@@ -2,6 +2,8 @@ package com.hdm.monopoly.backend.player_money;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hdm.monopoly.Game;
+import com.hdm.monopoly.backend.di.GameConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.annotation.SendToUser;
@@ -27,7 +29,7 @@ public class DiceNumber {
     @MessageMapping("/diceNumberBtnClicked")
     @SendToUser("/client/toggleDiceNumberBtn")
     public String addPlayer() throws JsonProcessingException {
-        diceRandomNumber();
+        Game.getInstance().movePlayer(Game.getInstance().getCurrentPlayer(), diceRandomNumber());
         return new ObjectMapper().writeValueAsString(true);
     }
 
