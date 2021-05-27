@@ -3,8 +3,6 @@ package com.hdm.monopoly.backend.player_money;
 
 public class Player {
 
-
-   
     private int position;
     private Account account;
     private String name;
@@ -56,7 +54,6 @@ public class Player {
     //Nach jeder Änderung des Kontostandes wird der neue Kontostand über das return statement zurückgegeben.
     //Falls wir später eine Anzeige des Kontostandes haben, kann man die Anzeige mit den Returnstatments aktualisieren
 
-
     public int PlayerGetsMoney(int amount){
         account.getMoney(amount);
         return account.getBankBalance();
@@ -67,4 +64,7 @@ public class Player {
         return account.getBankBalance();
     }
 
+    public int getPlayerBankBalance() {
+        return account.getBankBalance();
+    }
 }
