@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -52,7 +50,7 @@ public class CreatePlayers {
             if (playerNumber == 4) {
                 isPartyFull = true;
                 playerXTurn();
-//                notificationEvent();
+                notificationEvent();
             }
         }
         for (String id: sessionIds) {
@@ -65,14 +63,11 @@ public class CreatePlayers {
     public Player[] getPlayers() {
         return players;
     }
-
     /*
-    sends a notification to all players, which player's turn it is now
-     */
-    @MessageMapping()
-    @SendTo("/client/notification")
-    private String notificationEvent() throws JsonProcessingException {
-        return new ObjectMapper().writeValueAsString("Player" + getPlayers()[playerNumber - 1].getName() + " is on turn");
+    when party is full, message is sent that first player is on turn
+    */
+    private void notificationEvent() {
+        sendMessage.sendToAll("/client/notification", "Player " + getPlayers()[0].getName() + " is on turn");
     }
 
     /*
