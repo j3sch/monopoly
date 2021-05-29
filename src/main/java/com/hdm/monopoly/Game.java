@@ -1,8 +1,10 @@
 package com.hdm.monopoly;
 
 import com.hdm.monopoly.backend.player_money.DiceNumber;
-import com.hdm.monopoly.backend.board.street_test.Map;
+import com.hdm.monopoly.backend.board.streets.Map;
 import com.hdm.monopoly.backend.player_money.Player;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 import java.util.ArrayList;
@@ -10,75 +12,33 @@ import java.util.ArrayList;
 /**
  * Class that starts and manages the game, is implemented as a singleton
  */
+@Component("game")
 public class Game {
 
-    private static Game game;
-    public static int playerCount; // helper for constructor
-    private static boolean isInitialized = false;
+    public int playerCount; // helper for constructor
 
     // These two attributes enable a connection between a map and players
-    private ArrayList<Player> players; /*we assume the game knows on its creation how many players there are.
+    private final Player[] players; /*we assume the game knows on its creation how many players there are.
     That could be achieved by a controller class that manages the network communication*/
     private Map board;
 
-    private int currentPlayer;
+    private int currentPlayer = 0;
 
-    private boolean gameRun;
 
-    private DiceNumber dice;
-
-    private Game(){
-        if(isInitialized) {
-            currentPlayer=0;
-
-            //why does the DiceNumber class needs an player array?
-            dice= new DiceNumber((Player[]) players.toArray());
-
-            //based on the playerCount the "Spielers" are created and gets put into the players ArrayList
-        }
-    }
 
     /**
-     * method which implements the game loop
+     * Constructor for Game
+     * @param players Array with players
      */
-    public void runGame(){
-        // TODO Game Loop
-        while(gameRun){
-            //begin of turn
-            //TODO player interaction
-            /*
-            example of a turn without player interaction
-             */
-            int diceResult = dice.diceRandomNumber();
-            movePlayer(getCurrentPlayer(),diceResult);
+    @Autowired
+    public Game(Player[] players){
+        this.players = players;
 
-            //end of turn
-            endOfTurn();
-        }
+        //based on the playerCount the Players are created and gets put into the players ArrayList
+
     }
 
-    /**
-     * This function is the only method to obtain a reference to the game that is currently running.
-     * If there is no game running it creates a new one and makes it accessible.
-     * @return Game that is currently running or the new created one.
-     */
-    public static Game getInstance(){
-        if(game == null) {
-            game = new Game();
-        }
-        return game;
-    }
 
-    /**
-     * This method has to be called before creating a new game. This method sets the player count for the game.
-     * @param initialPlayerCount An Integer with the player count.
-     */
-    public static void initialize(int initialPlayerCount){
-        if(!isInitialized){
-            playerCount = initialPlayerCount;
-            isInitialized = true;
-        }
-    }
 
     /**
      * Standard getter for the board.
@@ -111,13 +71,13 @@ public class Game {
      * @return The current player.
      */
     public Player getCurrentPlayer(){
-        return players.get(currentPlayer);
+        return players[currentPlayer];
     }
 
     /**
-     * method which controls the end of the turn and checks if the game is over
+     * method which controls the end of the turn and sets the currentPlayer to the next
      */
-    private void endOfTurn(){
+    public void endOfTurn(){
         //TODO check if game has to end
         currentPlayer=++currentPlayer%playerCount;
     }

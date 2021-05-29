@@ -2,12 +2,11 @@ package com.hdm.monopoly.backend.board.streets;
 
 import com.hdm.monopoly.backend.player_money.Player;
 
-public class Street implements Fields {
+public class Street implements Field {
 //Eigenschaften
 //Properties
 
     private String streetName;
-    private int index;
     private int price;
     private int rent;
     private Color color;
@@ -18,24 +17,30 @@ public class Street implements Fields {
 //Constructor
 
 
-    public Street(String streetName, int index, int price, int rent, Color color) {
+    public Street(String streetName, int price, int rent, Color color) {
         this.streetName = streetName;
-        this.index = index;
         this.price = price;
         this.rent = rent;
         this.color = color;
     }
 
     //Methods
+    @Override
     public void moveOnField(Player player) {
         if (owner == null) {
-            //ask player if he wants to buy that field
+            //TODO ask player if he wants to buy that field
         } else {
             //player on field has to pay rent to the owner
+            if(player != owner){
+                player.PlayerPaysMoney(rent);
+                owner.PlayerGetsMoney(rent);
+                //TODO send Messages to players for losing money and receiving money
+            }
         }
     }
     //Getter
-    public String getStreetName() {
+    @Override
+    public String getFieldName() {
         return streetName;
     }
 
@@ -49,10 +54,6 @@ public class Street implements Fields {
 
     public Color getColor() {
         return color;
-    }
-
-    public int getIndex() {
-        return index;
     }
 
     public Player getOwner() {
