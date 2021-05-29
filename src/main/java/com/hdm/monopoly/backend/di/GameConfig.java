@@ -1,5 +1,6 @@
 package com.hdm.monopoly.backend.di;
 
+import com.hdm.monopoly.Game;
 import com.hdm.monopoly.backend.board.streets.StreetManager;
 import com.hdm.monopoly.backend.player_money.Player;
 import com.hdm.monopoly.backend.player_money.SendMessage;
@@ -15,6 +16,12 @@ public class GameConfig {
     private final StreetManager streetManager = new StreetManager();
     private final String[] sessionIds = new String[4];
     private final SendMessage sendMessage = new SendMessage();
+    private final Game game = new Game(getPlayers());
+
+    @Bean
+    public Game getGame(){
+        return game;
+    }
 
     @Bean
     public Player[] getPlayers() {

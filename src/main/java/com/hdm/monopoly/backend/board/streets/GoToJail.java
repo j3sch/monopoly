@@ -2,28 +2,21 @@ package com.hdm.monopoly.backend.board.streets;
 
 import com.hdm.monopoly.backend.player_money.Player;
 
-public class Go implements Field {
+public class GoToJail implements Field{
 
     private String name;
-    private int goValue;
 
-    public Go(String name,int goValue){
+    public GoToJail(String name){
         this.name = name;
-        this.goValue = goValue;
     }
 
     @Override
     public void moveOnField(Player player) {
-        player.PlayerGetsMoney(goValue);
-    }
-
-    public int getGoValue(){
-        return goValue;
+        //TODO move to the Prison and look player there
     }
 
     @Override
     public String getFieldName() {
         return name;
     }
-
 }

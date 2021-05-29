@@ -25,15 +25,22 @@ public class Street implements Field {
     }
 
     //Methods
+    @Override
     public void moveOnField(Player player) {
         if (owner == null) {
-            //ask player if he wants to buy that field
+            //TODO ask player if he wants to buy that field
         } else {
             //player on field has to pay rent to the owner
+            if(player != owner){
+                player.PlayerPaysMoney(rent);
+                owner.PlayerGetsMoney(rent);
+                //TODO send Messages to players for losing money and receiving money
+            }
         }
     }
     //Getter
-    public String getStreetName() {
+    @Override
+    public String getFieldName() {
         return streetName;
     }
 
