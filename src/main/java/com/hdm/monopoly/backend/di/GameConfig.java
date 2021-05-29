@@ -16,7 +16,7 @@ public class GameConfig {
     private final StreetManager streetManager = new StreetManager();
     private final String[] sessionIds = new String[4];
     private final SendMessage sendMessage = new SendMessage();
-    private final Game game = new Game(getPlayers());
+    private final Game game = new Game(players);
 
     @Bean
     public Game getGame(){

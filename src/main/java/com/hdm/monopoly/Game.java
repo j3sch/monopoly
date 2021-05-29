@@ -12,17 +12,18 @@ import java.util.ArrayList;
 /**
  * Class that starts and manages the game, is implemented as a singleton
  */
-@Component("Game")
+@Component("game")
 public class Game {
 
     public int playerCount; // helper for constructor
 
     // These two attributes enable a connection between a map and players
-    private Player[] players; /*we assume the game knows on its creation how many players there are.
+    private final Player[] players; /*we assume the game knows on its creation how many players there are.
     That could be achieved by a controller class that manages the network communication*/
     private Map board;
 
-    private int currentPlayer;
+    private int currentPlayer = 0;
+
 
 
     /**
@@ -31,10 +32,7 @@ public class Game {
      */
     @Autowired
     public Game(Player[] players){
-        currentPlayer=0;
-        this.playerCount = players.length;
         this.players = players;
-        this.board = new Map();
 
         //based on the playerCount the Players are created and gets put into the players ArrayList
 

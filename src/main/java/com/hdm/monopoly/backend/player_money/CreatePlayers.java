@@ -18,14 +18,15 @@ public class CreatePlayers {
     private int playerNumber;
     private final Colours colours = new Colours();
     private Boolean isPartyFull = false;
-    private final String[] SESSIONIDS = new String[4];
+    private final String[] sessionIds;
     private final Player[] players;
     private final SendMessage sendMessage;
 
     @Autowired
-    public CreatePlayers(Player[] players, @Qualifier("getSendMessage") SendMessage sendMessage) {
+    public CreatePlayers(Player[] players, @Qualifier("getSendMessage") SendMessage sendMessage, String[] sessionIds) {
         this.players = players;
         this.sendMessage = sendMessage;
+        this.sessionIds = sessionIds;
     }
 
     /*
@@ -38,7 +39,7 @@ public class CreatePlayers {
 
         if (playerNumber < 4) {
 
-            SESSIONIDS[playerNumber] = (sessionId);
+            sessionIds[playerNumber] = (sessionId);
 
             players[playerNumber] = new Player(
                     playerNumber,
@@ -54,7 +55,7 @@ public class CreatePlayers {
 //                notificationEvent();
             }
         }
-        for (String id: SESSIONIDS) {
+        for (String id: sessionIds) {
             if (id != null) {
                 sendMessage.sendToUser(id, "/client/playerList", new ObjectMapper().writeValueAsString(players));
             }
@@ -67,7 +68,6 @@ public class CreatePlayers {
 
     /*
     sends a notification to all players, which player's turn it is now
-    TODO message isn't sent away
      */
     @MessageMapping()
     @SendTo("/client/notification")
@@ -79,7 +79,7 @@ public class CreatePlayers {
     sends this message only to the player whose turn it is now, so that the buttons can be activated
      */
     public void playerXTurn() {
-        sendMessage.sendToUser(SESSIONIDS[0], "/client/toggleDiceNumberBtn", "false");
+        sendMessage.sendToUser(sessionIds[0], "/client/toggleDiceNumberBtn", "false");
     }
 
     //Define previous Player for everyone
