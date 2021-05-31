@@ -56,14 +56,22 @@ public class Game {
      */
 
     public void movePlayer(Player playerToBeMoved, int steps){
-        //Calculating players new position and checking if he made a whole round around the map and is at the start again
-        int newPosition = (playerToBeMoved.getPosition() + steps) % board.size();
-        if(playerToBeMoved.getPosition()>newPosition){
-            //TODO get money for crossing map start = yet to be implemented
+            //Calculating players new position and checking if he made a whole round around the map and is at the start again
+            int newPosition = (playerToBeMoved.getPosition() + steps) % board.size();
+            if (playerToBeMoved.getPosition() > newPosition) {
+                //TODO get money for crossing map start = yet to be implemented
+            }
+            playerToBeMoved.setPosition(newPosition);
+            //activates the moveOnField function which is the field action
+            board.getField(newPosition).moveOnField(playerToBeMoved);
+    }
+
+    public void teleport(Player playerToBeTeleported, int position){
+        if(position<board.size() && position >= 0){
+            playerToBeTeleported.setPosition(position);
+        }else {
+            //TODO Error correction
         }
-        playerToBeMoved.setPosition(newPosition);
-        //activates the moveOnField function which is the field action
-        board.getField(newPosition).moveOnField(playerToBeMoved);
     }
 
     /**

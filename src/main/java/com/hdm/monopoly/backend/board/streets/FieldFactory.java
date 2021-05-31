@@ -16,6 +16,8 @@ public class FieldFactory {
                 return new GoToJail(name);
             case "EventField":
                 return new EventField(name);
+            case "FreeParking":
+                return new FreeParking(name);
             default:
                 throw new WrongFieldError("Wrong Field Type");
         }

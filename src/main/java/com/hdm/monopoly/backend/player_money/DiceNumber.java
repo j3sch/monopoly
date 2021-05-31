@@ -32,8 +32,15 @@ public class DiceNumber {
     @SendToUser("/client/toggleDiceNumberBtn")
     public String addPlayer() throws JsonProcessingException {
         int diceNumber = diceRandomNumber();    //maybe to display the result of the dice
-        game.movePlayer(game.getCurrentPlayer(), diceNumber);
-
+        if(game.getCurrentPlayer().getJailTime()>0){
+            if(diceNumber == 6){
+                game.getCurrentPlayer().getReleased();
+            }else{
+                game.getCurrentPlayer().jailed();
+            }
+        }else {
+            game.movePlayer(game.getCurrentPlayer(), diceNumber);
+        }
         game.endOfTurn();//maybe not the best moment to change the current player
 
         return new ObjectMapper().writeValueAsString(true);

@@ -1,5 +1,6 @@
 package com.hdm.monopoly.backend.board.streets;
 
+import com.hdm.monopoly.backend.di.GameConfig;
 import com.hdm.monopoly.backend.player_money.Player;
 
 public class GoToJail implements Field{
@@ -12,7 +13,11 @@ public class GoToJail implements Field{
 
     @Override
     public void moveOnField(Player player) {
-        //TODO move to the Prison and look player there
+        //TODO move to the jail and look player there
+
+        //TODO get the Game object and teleport player to jail
+
+        player.getArrested();
     }
 
     @Override
