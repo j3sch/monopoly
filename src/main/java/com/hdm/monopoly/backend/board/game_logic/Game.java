@@ -1,4 +1,4 @@
-package com.hdm.monopoly;
+package com.hdm.monopoly.backend.board.game_logic;
 
 import com.hdm.monopoly.backend.player_money.DiceNumber;
 import com.hdm.monopoly.backend.board.streets.Map;
@@ -18,7 +18,7 @@ public class Game {
     public int playerCount; // helper for constructor
 
     // These two attributes enable a connection between a map and players
-    private final Player[] players; /*we assume the game knows on its creation how many players there are.
+    private Player[] players; /*we assume the game knows on its creation how many players there are.
     That could be achieved by a controller class that manages the network communication*/
     private Map board;
 
@@ -31,13 +31,13 @@ public class Game {
      * @param players Array with players
      */
     @Autowired
-    public Game(Player[] players){
+    public  Game(Player[] players, Map map){
         this.players = players;
+        this.board = map;
 
         //based on the playerCount the Players are created and gets put into the players ArrayList
 
     }
-
 
 
     /**
