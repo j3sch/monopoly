@@ -13,12 +13,11 @@ import org.springframework.stereotype.Controller;
 @Component("diceNumber")
 public class DiceNumber {
 
-    private final Player[] players;
+
     private final Game game;
 
     @Autowired
-    public DiceNumber(Player[] players, Game game) {
-        this.players = players;
+    public DiceNumber(Game game) {
         this.game = game;
     }
 
@@ -29,9 +28,9 @@ public class DiceNumber {
      */
     @MessageMapping("/diceNumberBtnClicked")
     @SendToUser("/client/toggleDiceNumberBtn")
-    public String addPlayer() throws JsonProcessingException {
+    public String diceNumberClicked() throws JsonProcessingException {
         int diceNumber = diceRandomNumber();    //maybe to display the result of the dice
-        game.movePlayer(game.getCurrentPlayer(), diceNumber);
+        game.movePlayer(diceNumber);
 
         game.endOfTurn();//maybe not the best moment to change the current player
 

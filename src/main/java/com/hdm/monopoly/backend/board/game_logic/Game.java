@@ -51,19 +51,18 @@ public class Game {
     /**
      * This method moves the player to his new position and executes the field action.
      * This method does not take the action of rolling the dice. It has to happen before.
-     * @param playerToBeMoved Is the player that is getting moved
      * @param steps Number of fields the player should be moved
      */
 
-    public void movePlayer(Player playerToBeMoved, int steps){
+    public void movePlayer(int steps){
         //Calculating players new position and checking if he made a whole round around the map and is at the start again
-        int newPosition = (playerToBeMoved.getPosition() + steps) % board.size();
-        if(playerToBeMoved.getPosition()>newPosition){
+        int newPosition = (getCurrentPlayer().getPosition() + steps) % board.size();
+        if(getCurrentPlayer().getPosition()>newPosition){
             //TODO get money for crossing map start = yet to be implemented
         }
-        playerToBeMoved.setPosition(newPosition);
+        getCurrentPlayer().setPosition(newPosition);
         //activates the moveOnField function which is the field action
-        board.getField(newPosition).moveOnField(playerToBeMoved);
+        board.getField(newPosition).moveOnField(getCurrentPlayer());
     }
 
     /**
