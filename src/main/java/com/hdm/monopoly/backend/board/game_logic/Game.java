@@ -1,13 +1,11 @@
 package com.hdm.monopoly.backend.board.game_logic;
 
-import com.hdm.monopoly.backend.player_money.DiceNumber;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hdm.monopoly.backend.board.streets.Map;
 import com.hdm.monopoly.backend.player_money.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-
-import java.util.ArrayList;
 
 /**
  * Class that starts and manages the game, is implemented as a singleton
@@ -15,7 +13,7 @@ import java.util.ArrayList;
 @Component("game")
 public class Game {
 
-    public int playerCount; // helper for constructor
+    private final int PLAYERCOUNT = 4; // helper for constructor
 
     // These two attributes enable a connection between a map and players
     private Player[] players; /*we assume the game knows on its creation how many players there are.
@@ -73,12 +71,14 @@ public class Game {
         return players[currentPlayer];
     }
 
+    public int getCurrentPlayerIndex() { return currentPlayer; }
+
     /**
      * method which controls the end of the turn and sets the currentPlayer to the next
      */
     public void endOfTurn(){
         //TODO check if game has to end
-        currentPlayer=++currentPlayer%playerCount;
+        currentPlayer = ++currentPlayer % PLAYERCOUNT;
     }
 }
 
