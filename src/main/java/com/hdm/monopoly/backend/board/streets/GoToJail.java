@@ -13,9 +13,7 @@ public class GoToJail implements Field{
 
     @Override
     public void moveOnField(Player player) {
-        //TODO move to the jail and look player there
-
-        //TODO get the Game object and teleport player to jail
+        player.setPosition(6);
 
         player.getArrested();
     }
